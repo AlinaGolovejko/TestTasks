@@ -12,7 +12,6 @@ public class Application {
         Scanner in = new Scanner(System.in);
         Group firstGroup = new Group();
         Group secondGroup = new Group();
-        //int[] results = new int[STUDENTS_SIZE];
         List<Group> groups = new ArrayList<Group>();
         groups.add(firstGroup);
         groups.add(secondGroup);
@@ -24,8 +23,6 @@ public class Application {
             newTicket.question = "Question " + (i + 1);
             tickets.add(newTicket);
         }
-
-        //List<Student> students = new ArrayList<Student>(STUDENTS_SIZE);
         for (int j = 0; j <= groups.size() - 1; j++){
             out.println("Group " + (j + 1) + ":");
             Group currentGroup = groups.get(j);
@@ -79,7 +76,7 @@ private static int getMaxValueIndex(int[] results){
         return index;
     }
 
-    private static int getMinValueIndex(int[] results){
+private static int getMinValueIndex(int[] results){
         int min = results[0], index = 0;
         if (results.length > 0)
         {
