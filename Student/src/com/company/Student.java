@@ -4,5 +4,5 @@ public class Student {
 
     String name;
     String lastName;
-
+    Ticket ticket;
 }

@@ -5,29 +5,52 @@ import static java.lang.System.*;
 
 
 public class Application {
-    public static final int STUDENTS_SIZE =5;
+    public static final int STUDENTS_SIZE = 5;
+    public static final int ALL_TICKETS = 10;
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        int[] results = new int[STUDENTS_SIZE];
-        List<Student> students = new ArrayList<Student>(STUDENTS_SIZE);
-        for( int i = 0; i <= 4; i++ ){
-            Student newStudent = new Student();
-            System.out.print("Input name: ");
-            newStudent.name = in.nextLine();
-            System.out.print("Input lastName: ");
-            newStudent.lastName = in.nextLine();
-            students.add(newStudent);
-            out.println("Student " + (i + 1) + ": " + newStudent.name + " " + newStudent.lastName);
-            }
+        Group firstGroup = new Group();
+        Group secondGroup = new Group();
+        //int[] results = new int[STUDENTS_SIZE];
+        List<Group> groups = new ArrayList<Group>();
+        groups.add(firstGroup);
+        groups.add(secondGroup);
+        List<Ticket> tickets = new ArrayList<Ticket>(ALL_TICKETS);
 
-        int b = 6;
-        for (int i = 0; i <= students.size() - 1; i++ ){
-            Student st = students.get(i);
-            results[i] = (int) (Math.random() * b);
-            out.println(st.name + " " + st.lastName + ": " + results[i]);
+        for (int i = 0; i <= ALL_TICKETS - 1; i++){
+            Ticket newTicket = new Ticket();
+            newTicket.id = i;
+            newTicket.question = "Question " + (i + 1);
+            tickets.add(newTicket);
         }
-        out.println("Average of all students marks:" + getAverageValue(results));
-     }
+
+        //List<Student> students = new ArrayList<Student>(STUDENTS_SIZE);
+        for (int j = 0; j <= groups.size() - 1; j++){
+            out.println("Group " + (j + 1) + ":");
+            Group currentGroup = groups.get(j);
+            currentGroup.students = new ArrayList<Student>(STUDENTS_SIZE);
+            currentGroup.results = new int[STUDENTS_SIZE];
+            for (int i = 0; i <= STUDENTS_SIZE - 1; i++ ){
+                Student newStudent = new Student();
+                System.out.print("Input name: ");
+                newStudent.name = in.nextLine();
+                System.out.print("Input lastName: ");
+                newStudent.lastName = in.nextLine();
+                newStudent.ticket = tickets.get((int) (Math.random() * ALL_TICKETS));
+                currentGroup.students.add(newStudent);
+                currentGroup.results[i] = (int) (Math.random() * STUDENTS_SIZE + 1);
+                out.println("Student - " + newStudent.name + " " + newStudent.lastName + ", ticket - " + newStudent.ticket.question + ", marks of exam - " + currentGroup.results[i]);
+            }
+            out.println();
+            out.println("Average of all students marks: " + getAverageValue(currentGroup.results));
+            int betterStudentIndex = getMaxValueIndex(currentGroup.results);
+            out.println("Better student: " + currentGroup.students.get(betterStudentIndex).name + " " + currentGroup.students.get(betterStudentIndex).lastName + " " + currentGroup.results[betterStudentIndex]);
+            int badlyStudentIndex = getMinValueIndex(currentGroup.results);
+            out.println("Badly student: " + currentGroup.students.get(badlyStudentIndex).name + " " + currentGroup.students.get(badlyStudentIndex).lastName + " " + currentGroup.results[badlyStudentIndex]);
+            out.println();
+        }
+        }
 
 private static float getAverageValue(int[] results){
     float average = 0;
@@ -41,4 +64,32 @@ private static float getAverageValue(int[] results){
     }
     return average;
 }
+
+private static int getMaxValueIndex(int[] results){
+        int max = results[0], index = 0;
+        if (results.length > 0)
+        {
+            for (int j = 0; j < results.length; j++) {
+                if (max <= results[j]) {
+                    max = results[j];
+                    index = j;
+                }
+            }
+        }
+        return index;
+    }
+
+    private static int getMinValueIndex(int[] results){
+        int min = results[0], index = 0;
+        if (results.length > 0)
+        {
+            for (int j = 0; j < results.length; j++) {
+                if (min >= results[j]) {
+                    min = results[j];
+                    index = j;
+                }
+            }
+        }
+        return index;
+    }
 }
