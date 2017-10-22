@@ -9,10 +9,11 @@ public class Main {
         System.out.println("Введите Ваше предложение: ");
         String proposal = in.nextLine();
         System.out.println("Строка в обратном порядке: ");
+        char[] newProposal = proposal.toCharArray();
         for (int i = proposal.length() - 1; i >= 0; i--) {
-            char[] newProposal = proposal.toCharArray();
             System.out.print(newProposal[i]);
         }
+        System.out.println();
         System.out.println("Каждое слово предложения с новой строки: ");
         for (String retval : proposal.split(" ")) {
             System.out.println(retval);
