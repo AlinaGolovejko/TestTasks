@@ -44,7 +44,7 @@ public class Main {
         String letter = in.nextLine();
         int flag = 0;
         for (int i = 0; i < students.size(); i++){
-            if (letter.charAt(0) == (students.get(i).lastName.charAt(0))){
+            if (Character.toString(letter.charAt(0)).equalsIgnoreCase(Character.toString(students.get(i).lastName.charAt(0)))){
                 System.out.println(students.get(i).id + " " + students.get(i).firstName + " " + students.get(i).lastName + " " + students.get(i).age);
                 flag++;
             }
